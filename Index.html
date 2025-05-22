@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cururu Running</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+        body {
+            font-family: sans-serif; 
+            background-color: #f0f0f0; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+      
+        header {
+            background-color: #ffffff; 
+            padding: 15px; 
+            text-align: center; 
+            border-bottom: 1px solid #e0e0e0; 
+        }
+
+        
+        h1 {
+            color: #333333;
+            font-size: 28px; 
+            margin-bottom: 10px;
+        }
+
+        
+        nav ul {
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #007bff; 
+            font-weight: bold; 
+        }
+
+        nav a:hover {
+            color: #0056b3; 
+        }
+
+        
+        main {
+            padding: 20px; 
+            max-width: 800px; 
+            margin: 20px auto; 
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0; 
+        }
+
+        
+        section {
+            margin-bottom: 30px; 
+            padding: 20px; 
+            border: 1px solid #cccccc;
+            text-align: center; 
+        }
+
+        
+        section h2 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        
+        p {
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        
+        button {
+            background-color: #28a745; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 16px;
+            margin-top: 20px; 
+        }
+
+        button:hover {
+            background-color: #218838; 
+        }
+
+        
+        .product-card {
+            border: 1px solid #ddddd; 
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%; 
+            height: auto; 
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+
+        .product-card .price {
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .color-options span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            border: 1px solid #cccccc;
+            margin: 0 5px;
+        }
+
+        
+        .color-green {
+            background-color: #4CAF50;
+        }
+
+        .color-blue {
+            background-color: #007bff;
+        }
+
+      
+        footer {
+            background-color: #333333; 
+            color: white; 
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 30px; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cururu Running</h1>
+        <nav>
+            <ul>
+                <li><a href="#home-section">Início</a></li>
+                <li><a href="#products-section">Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home-section">
+            <h2>Bem-vindos à Cururu Running!</h2>
+            <p>Somos a equipe de corrida mais animada de Arapiraca/AL! Nosso objetivo é promover a saúde, o bem-estar e a paixão pela corrida, unindo pessoas e superando limites a cada passo.</p>
+            <p>Junte-se a nós e descubra o prazer de correr em comunidade!</p>
+            <button>Saiba Mais</button>
+        </section>
+
+        <section id="products-section">
+            <h2>Nossos Produtos</h2>
+            <div class="product-card">
+                <h3>Camisa Cururu Running</h3>
+                <img src="https://placehold.co/300x200/DDDDDD/666666?text=Camisa+Verde" alt="Camisa Cururu Running Verde">
+                <p class="price">Preço: R$ 80,00</p>
+                <p>Cores disponíveis: Verde e Azul</p>
+                <div class="color-options">
+                    <span class="color-green" title="Cor Verde"></span>
+                    <span class="color-blue" title="Cor Azul"></span>
+                </div>
+                <button>Comprar Agora</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Cururu Running. Todos os direitos reservados.</p>
+        <p>Feito com paixão em Arapiraca/AL.</p>
+    </footer>
+
+</body>
+</html>
+
