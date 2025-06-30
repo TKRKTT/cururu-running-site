@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipe Cururu Running</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Equipe Cururu Running</h1>
+        <nav>
+            <ul>
+                <li><a href="#home-section">Home</a></li>
+                <li><a href="#team-section">Nossa Equipe</a></li>
+                <li><a href="#store-section">Loja do Time</a></li>
+                <li><a href="#contact-section">Contato</a></li>
+                <li><a href="#cart-counter">Carrinho (<span id="cart-counter">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home-section">
+            <h2 class="scroll-reveal">Bem-vindo à Equipe Cururu!</h2>
+            <p id="welcome-message" class="scroll-reveal">Somos um time apaixonado por corridas de rua. Junte-se a nós ou apoie nossa equipe comprando nossos produtos exclusivos!</p>
+            <button id="change-text-btn" class="scroll-reveal">Mudar Mensagem</button>
+
+            <div class="carousel-container scroll-reveal">
+                <div class="carousel-slide">
+                    <img src="img/IMG-20240221-WA0045.jpg" alt="Equipe Cururu correndo na rua">
+                    <img src="img/IMG-20240421-WA0014.jpg" alt="Grupo de corredores da equipe Cururu">
+                    <img src="img/IMG-20241028-WA0030.jpg" alt="Membro da equipe Cururu celebrando após a corrida">
+                </div>
+                <button class="carousel-btn prev" aria-label="Anterior">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Próximo">&#10095;</button>
+            </div>
+
+            <div id="motto-info" class="info-card scroll-reveal"></div>
+            <div id="meeting-info" class="info-card scroll-reveal"></div>
+            <div id="location-info" class="info-card scroll-reveal"></div>
+
+        </section>
+
+        <section id="countdown-section" class="scroll-reveal">
+            <h2>Próxima Grande Corrida!</h2>
+            <p>Prepare-se para o desafio!</p>
+            <div id="countdown-timer">
+                <div class="countdown-item">
+                    <span id="days">00</span>
+                    <span>Dias</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">00</span>
+                    <span>Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">00</span>
+                    <span>Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">00</span>
+                    <span>Segundos</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="team-section">
+            <h2 class="scroll-reveal">Nossa Equipe</h2>
+            <div class="team-grid scroll-reveal">
+                <div class="team-member scroll-reveal">
+                    <h3>Nando Martins</h3>
+                    <p>Fundador e corredor profissional</p>
+                </div>
+                <div class="team-member scroll-reveal">
+                    <h3>Maria Souza</h3>
+                    <p>Treinadora e nutricionista</p>
+                </div>
+                <div class="team-member scroll-reveal">
+                    <h3>Itelas</h3>
+                    <p>Patrocinador oficial</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="store-section">
+            <h2 class="scroll-reveal">Loja do Time</h2>
+            <div class="product-list scroll-reveal">
+                <div class="product-item scroll-reveal">
+                    <h3>Camisa Oficial</h3>
+                    <p>Uniforme personalizado da equipe.</p>
+                    <button class="add-to-cart-btn" data-product="Camisa Oficial">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-item scroll-reveal">
+                    <h3>Boné do Time</h3>
+                    <p>Estilo e proteção solar.</p>
+                    <button class="add-to-cart-btn" data-product="Boné do Time">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-item scroll-reveal">
+                    <h3>Garrafa Personalizada</h3>
+                    <p>Com o logo da equipe.</p>
+                    <button class="add-to-cart-btn" data-product="Garrafa Personalizada">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-section">
+            <h2 class="scroll-reveal">Junte-se a Nós</h2>
+            <p class="scroll-reveal">Quer correr conosco ou patrocinar a equipe? Entre em contato:</p>
+            <form id="contact-form" class="scroll-reveal">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="interest">Interesse:</label>
+                <select id="interest" name="interest" required>
+                    <option value="">Selecione...</option>
+                    <option value="join">Participar da equipe</option>
+                    <option value="sponsor">Ser patrocinador</option>
+                    <option value="other">Outro</option>
+                </select>
+
+                <label for="message">Mensagem:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Equipe Cururu Running. Todos os direitos reservados.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/curururunning?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a> |
+            <a href="https://www.strava.com/clubs/1003252" target="_blank">Strava</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
