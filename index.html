@@ -5,178 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipe Cururu Running</title>
     <!-- Carrega o Tailwind CSS para estilização rápida e responsiva -->
-    <link href="tailwind.min.css" rel="stylesheet">
-    <!-- Linka o seu arquivo de estilos personalizado -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Linka o seu arquivo de estilos personalizado (onde estará todo o CSS agora) -->
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Define a fonte padrão para todo o corpo do site */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Estilo para o botão do carrinho com um gradiente */
-        .cart-button {
-            background: linear-gradient(to right, #28a745, #218838);
-        }
-        /* Estilo para ícones SVG, garantindo que eles usem a cor do texto pai */
-        .icon {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
-        /* Estilo da seção principal (hero) com imagem de fundo */
-        .hero-section {
-            background-image: url('/img/IMG-20240221-WA0045.jpg'), linear-gradient(135deg, #27ae60 0%, #218838 100%); /* Imagem de fundo da seção com fallback */
-            background-size: cover; /* Faz a imagem cobrir toda a área */
-            background-position: center; /* Centraliza a imagem */
-            position: relative; /* Necessário para o overlay */
-            min-height: 80vh; /* Altura mínima da seção */
-            display: flex; /* Permite centralizar o conteúdo com flexbox */
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white; /* Cor do texto */
-            padding: 20px; /* Espaçamento interno */
-        }
-        /* Cria uma camada escura sobre a imagem para melhorar a leitura do texto */
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Overlay escuro */
-            z-index: 1; /* Garante que o overlay fique abaixo do conteúdo */
-        }
-        /* Conteúdo dentro da seção hero, acima do overlay */
-        .hero-content {
-            position: relative;
-            z-index: 10; /* Garante que o conteúdo fique acima do overlay */
-            max-width: 900px;
-        }
-        /* Animações de entrada para elementos que aparecem ao rolar */
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        .animate-fade-in-up.delay-100 { animation-delay: 0.1s; }
-        .animate-fade-in-up.delay-200 { animation-delay: 0.2s; }
-        /* Define a animação fadeInUp */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Estilos para o container dos cards de informação */
-        .info-card-container {
-            display: grid; /* Usa grid para organizar os cards */
-            grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
-            gap: 2rem; /* Espaçamento entre os cards */
-            padding: 2rem 1.5rem;
-            margin-top: -6rem; /* Puxa os cards para cima, sobrepondo a seção hero */
-            position: relative;
-            z-index: 20; /* Garante que os cards fiquem acima de outras seções */
-        }
-        /* Em telas médias (md) e maiores, os cards ficam em 3 colunas */
-        @media (min-width: 768px) {
-            .info-card-container {
-                grid-template-columns: repeat(3, 1fr);
-                margin-top: -8rem;
-            }
-        }
-        /* Estilos para cada item de card de informação */
-        .info-card-item {
-            background-color: #ffffff;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .info-card-item h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #27ae60;
-            margin-bottom: 0.5rem;
-        }
-        .info-card-item p {
-            font-size: 1rem;
-            color: #34495e;
-            margin-bottom: 0;
-        }
-        .info-card-item .icon {
-            color: #27ae60;
-            margin-bottom: 1rem;
-        }
-        /* Estilos para a seção combinada de texto e mapa */
-        .combined-section {
-            display: flex; /* Usa flexbox para organizar conteúdo e mapa */
-            flex-direction: column; /* Empilha em telas pequenas */
-            gap: 2rem; /* Espaçamento entre os elementos */
-            padding: 4rem 1.5rem;
-            background-color: #f7fff7;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 2rem auto;
-            max-width: 1000px;
-        }
-        /* Em telas médias (md) e maiores, o texto e o mapa ficam lado a lado */
-        @media (min-width: 768px) {
-            .combined-section {
-                flex-direction: row;
-                text-align: left;
-            }
-            .combined-content {
-                flex: 1; /* Ocupa o espaço disponível */
-                padding-right: 2rem;
-            }
-            .combined-map {
-                flex: 1; /* Ocupa o espaço disponível */
-            }
-        }
-        .combined-section h2 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin-bottom: 1rem;
-        }
-        .combined-section p {
-            font-size: 1.1rem;
-            color: #34495e;
-            margin-bottom: 1.5rem;
-        }
-        /* Estilos para o container do mapa dentro da seção combinada */
-        .combined-section .map-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 para o iframe */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 0;
-        }
-        .combined-section .map-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Cabeçalho do site: logo, navegação principal e botão do carrinho -->
+    <!-- Cabeçalho do site: contém o logo, a navegação principal (desktop) e os botões de carrinho/menu (mobile) -->
     <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed w-full z-10 top-0">
         <!-- Logo da Equipe -->
         <div class="flex items-center">
+            <!-- Você pode substituir este div por uma imagem do logo se tiver uma -->
             <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-2">CR</div>
             <span class="text-blue-800 text-xl font-semibold">Equipe Cururu Running</span>
         </div>
@@ -197,6 +35,7 @@
         </a>
 
         <!-- Botão de menu para mobile (hambúrguer) - visível apenas em telas pequenas -->
+        <!-- Este botão é clicável e abre o menu mobile via JavaScript -->
         <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -205,6 +44,7 @@
     </header>
 
     <!-- Menu Mobile (aparece ao clicar no hambúrguer em telas pequenas) -->
+    <!-- Inicialmente oculto (-translate-x-full) e controlado por JavaScript -->
     <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
         <div class="flex justify-end p-6">
             <!-- Botão para fechar o menu mobile -->
@@ -216,6 +56,7 @@
         </div>
         <!-- Links de navegação do menu mobile -->
         <nav class="flex flex-col items-center space-y-6 text-xl mt-10">
+            <!-- data-scroll é usado pelo JavaScript para fechar o menu ao clicar -->
             <a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Home</a>
             <a href="#team-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Nossa Equipe</a>
             <a href="#store-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Loja do Time</a>
@@ -270,8 +111,8 @@
         <section id="join-run-map-section" class="combined-section scroll-reveal container mx-auto">
             <div class="combined-content">
                 <h2 class="text-center md:text-left">Venha Correr com a Gente!</h2>
+                <p class="text-center md:text-left">Junte-se à Equipe Cururu Running! Acreditamos que correr em grupo fortalece o corpo e a mente. Marque sua presença em nossos treinos na Praça Central de Arapiraca e transforme sua paixão pela corrida em resultados!</p>
                 <a href="#contact-section" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-green-700 transition duration-300 mt-4 md:mt-0 mx-auto md:mx-0 block no-underline text-center">Quero Participar!</a>
-                </button>
             </div>
             <div class="combined-map">
                 <!-- Mapa da Praça Central de Arapiraca -->
@@ -382,10 +223,7 @@
         </div>
     </footer>
 
-    <!-- Linka o seu arquivo de script JavaScript -->
-    <script src="script.js"></script>
-    <!-- Linka o seu arquivo de script JavaScript -->
-    <!-- Se mover este script para o <head>, adicione 'defer' para garantir que o DOM esteja carregado: <script src="script.js" defer></script> -->
+    <!-- Linka o seu arquivo de script JavaScript (deve ser o único) -->
     <script src="script.js"></script>
 </body>
 </html>
