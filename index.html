@@ -204,14 +204,24 @@
             Carrinho (<span id="cart-counter">0</span>)
         </a>
 
-        <!-- Botão de menu para mobile (hambúrguer) -->
-        <button class="md:hidden text-gray-700 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
-    </header>
-
+    <!-- Menu Mobile (inicialmente oculto) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex justify-end p-6">
+            <button id="close-mobile-menu" class="text-gray-700 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center space-y-6 text-xl mt-10">
+            <a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Home</a>
+            <a href="#team-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Nossa Equipe</a>
+            <a href="#store-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Loja do Time</a>
+            <a href="#contact-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Contato</a>
+            <a href="#cart-counter" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Carrinho (<span id="cart-counter-mobile">0</span>)</a>
+        </nav>
+    </div>
+    
     <main class="pt-20"> <!-- Adiciona padding-top para compensar o cabeçalho fixo -->
         <!-- Seção Principal (Hero Section) com imagem de fundo -->
         <section id="home-section" class="hero-section scroll-reveal">
