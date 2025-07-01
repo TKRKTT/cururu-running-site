@@ -4,50 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipe Cururu Running</title>
-    <!-- Carrega o Tailwind CSS para estilização rápida e responsiva -->
+    <!-- Tô usando o Tailwind CSS direto do CDN pra facilitar. Ele me dá um monte de classes prontas pra usar. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Linka o seu arquivo de estilos personalizado (onde estará todo o CSS agora) -->
+    <!-- E aqui eu chamo minha própria folha de estilos, pra customizações mais específicas. -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100">
-    <!-- Cabeçalho do site: contém o logo, a navegação principal (desktop) e os botões de carrinho/menu (mobile) -->
-    <header class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed w-full z-10 top-0">
-        <!-- Logo da Equipe -->
-        <div class="flex items-center">
-            <!-- Você pode substituir este div por uma imagem do logo se tiver uma -->
-            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-2">CR</div>
-            <span class="text-blue-800 text-xl font-semibold">Equipe Cururu Running</span>
+
+    <!-- 
+      CABEÇALHO DO SITE
+      Ele vai ficar fixo no topo da página enquanto o usuário rola.
+    -->
+    <header class="bg-white shadow-md fixed w-full z-10 top-0">
+        <!-- 
+          Este é o "container" principal do cabeçalho. 
+          'container mx-auto' centraliza ele e garante que o conteúdo aqui dentro 
+          fique alinhado com o resto do site. 'flex justify-between' organiza os itens 
+          (logo, nav, botões) com espaço entre eles.
+        -->
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
+            
+            <!-- Logo da Equipe (vai ficar na esquerda) -->
+            <div class="flex items-center">
+                <!-- Ícone temporário. Depois posso trocar por um <img> com o logo oficial. -->
+                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-2">CR</div>
+                <span class="text-blue-800 text-xl font-semibold">Equipe Cururu Running</span>
+            </div>
+    
+            <!-- 
+              NAVEGAÇÃO PRINCIPAL (DESKTOP)
+              CORREÇÃO DE ALINHAMENTO:
+              Para centralizar perfeitamente, tirei a navegação do fluxo normal do flexbox com 'absolute'.
+              'left-1/2' e '-translate-x-1/2' são um truque de CSS para centralizar na horizontal.
+              'hidden md:block' faz o menu aparecer só em telas médias ou maiores.
+            -->
+            <nav class="hidden md:block absolute left-1/2 transform -translate-x-1/2">
+                <ul class="flex space-x-8">
+                    <li><a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Início</a></li>
+                    <li><a href="#team-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Nossa Equipe</a></li>
+                    <li><a href="#store-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Loja do Time</a></li>
+                    <li><a href="#contact-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Contato</a></li>
+                </ul>
+            </nav>
+    
+            <!-- Botões do lado direito (Carrinho e Menu Mobile) -->
+            <div class="flex items-center space-x-4">
+                <!-- Botão do Carrinho: só aparece em telas de desktop ('hidden md:flex') -->
+                <button id="open-cart-button" class="cart-button text-white px-5 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300 hidden md:flex items-center relative">
+                    <!-- A imagem do carrinho vai aqui. Usei um placeholder por enquanto. -->
+                    <img src="https://placehold.co/20x20/ffffff/2980b9?text=C" alt="Carrinho" class="w-5 h-5 mr-1" onerror="this.onerror=null;this.src='https://placehold.co/20x20/ffffff/2980b9?text=C';"> 
+                    <!-- O contador de itens do carrinho. -->
+                    <span id="cart-counter-desktop" class="cart-badge absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+    
+                <!-- Botão de menu para mobile (o "hambúrguer"): só aparece em telas pequenas ('md:hidden') -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+
         </div>
-
-        <!-- Navegação Principal (visível apenas em telas maiores) -->
-        <nav class="hidden md:flex space-x-6">
-            <ul class="flex space-x-6">
-                <li><a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Home</a></li>
-                <li><a href="#team-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Nossa Equipe</a></li>
-                <li><a href="#store-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Loja do Time</a></li>
-                <li><a href="#contact-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300">Contato</a></li>
-            </ul>
-        </nav>
-
-        <!-- Botão do Carrinho (visível apenas em telas maiores) -->
-        <a href="#cart-counter" class="cart-button text-white px-5 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300 hidden md:block">
-            Carrinho (<span id="cart-counter-desktop">0</span>)
-        </a>
-
-        <!-- Botão de menu para mobile (hambúrguer) - visível apenas em telas pequenas -->
-        <!-- Este botão é clicável e abre o menu mobile via JavaScript -->
-        <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
     </header>
 
-    <!-- Menu Mobile (aparece ao clicar no hambúrguer em telas pequenas) -->
-    <!-- Inicialmente oculto (-translate-x-full) e controlado por JavaScript -->
+    <!-- 
+      MENU MOBILE
+      Fica escondido fora da tela e desliza pra dentro quando o botão hambúrguer é clicado.
+    -->
     <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <!-- Botão para fechar o menu mobile -->
         <div class="flex justify-end p-6">
-            <!-- Botão para fechar o menu mobile -->
             <button id="close-mobile-menu" class="text-gray-700 focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -56,18 +83,45 @@
         </div>
         <!-- Links de navegação do menu mobile -->
         <nav class="flex flex-col items-center space-y-6 text-xl mt-10">
-            <!-- data-scroll é usado pelo JavaScript para fechar o menu ao clicar -->
-            <a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Home</a>
+            <a href="#home-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Início</a>
             <a href="#team-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Nossa Equipe</a>
             <a href="#store-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Loja do Time</a>
             <a href="#contact-section" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Contato</a>
-            <a href="#cart-counter" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Carrinho (<span id="cart-counter-mobile">0</span>)</a>
+            <button id="open-cart-mobile-button" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" data-scroll>Carrinho (<span id="cart-counter-mobile">0</span>)</button>
         </nav>
     </div>
+
+    <!-- 
+      SIDEBAR DO CARRINHO
+      Também fica escondida e aparece da direita pra esquerda.
+    -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-blue-800">Seu Carrinho</h2>
+            <button id="close-cart-button" class="text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <!-- A lista de itens do carrinho vai ser preenchida pelo JavaScript -->
+        <div id="cart-items-list" class="flex-1 overflow-y-auto">
+            <p class="text-gray-600 text-center">Nenhum item no carrinho.</p>
+        </div>
+        <!-- O total e o botão de finalizar compra -->
+        <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-semibold text-gray-800">Total:</span>
+                <span id="cart-total" class="text-lg font-bold text-blue-800">R$ 0.00</span>
+            </div>
+            <button class="bg-blue-600 text-white w-full py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300">Finalizar Compra</button>
+        </div>
+    </div>
     
-    <!-- Conteúdo principal do site, com padding para não ser coberto pelo cabeçalho fixo -->
+    <!-- 
+      CONTEÚDO PRINCIPAL DO SITE
+      'pt-20' (padding-top) pra não ficar escondido atrás do cabeçalho fixo.
+    -->
     <main class="pt-20">
-        <!-- Seção Principal (Hero): Boas-vindas e chamada para ação -->
+        <!-- Seção Principal (Hero) com a imagem de fundo -->
         <section id="home-section" class="hero-section scroll-reveal">
             <div class="hero-content">
                 <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">
@@ -82,26 +136,21 @@
             </div>
         </section>
 
-        <!-- Seção de Informações: Cards com lema, horários e localização -->
+        <!-- Seção de Cards de Informação -->
         <section class="info-card-container container mx-auto px-6">
+            <!-- Cada 'info-card-item' é um card. O grid vai organizar eles. -->
             <div class="info-card-item scroll-reveal">
-                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.4 6L14 4H5V21H7V14H12.6L13 16H22V6H14.4z"/>
-                </svg>
+                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14.4 6L14 4H5V21H7V14H12.6L13 16H22V6H14.4z"/></svg>
                 <h3>Nosso Lema</h3>
                 <p>Juntos somos mais fortes, correndo em busca dos nossos sonhos!</p>
             </div>
             <div class="info-card-item scroll-reveal">
-                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
-                </svg>
+                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
                 <h3>Horários e Local de Encontro</h3>
                 <p id="meeting-info-text">Nos encontramos na Praça Central de Arapiraca às segundas, quartas e sextas, das 19h30 às 20h. Aos sábados, fazemos treinos longos em trilhas, com ponto de encontro a ser divulgado.</p>
             </div>
             <div class="info-card-item scroll-reveal">
-                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
-                </svg>
+                <svg class="icon w-12 h-12 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
                 <h3>Nossa Localização</h3>
                 <p>Praça Central, Arapiraca - AL</p>
             </div>
@@ -111,11 +160,10 @@
         <section id="join-run-map-section" class="combined-section scroll-reveal container mx-auto">
             <div class="combined-content">
                 <h2 class="text-center md:text-left">Venha Correr com a Gente!</h2>
-                <p class="text-center md:text-left">Junte-se à Equipe Cururu Running! Acreditamos que correr em grupo fortalece o corpo e a mente. Marque sua presença em nossos treinos na Praça Central de Arapiraca e transforme sua paixão pela corrida em resultados!</p>
-                <a href="#contact-section" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-green-700 transition duration-300 mt-4 md:mt-0 mx-auto md:mx-0 block no-underline text-center">Quero Participar!</a>
+                <p class="text-center md:text-left">Junte-se à Equipe Cururu Running! Acreditamos que correr em grupo fortalece o corpo e a mente...</p>
+                <a href="#contact-section" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-blue-700 transition duration-300 mt-4 md:mt-0 mx-auto md:mx-0 block no-underline text-center">Quero Participar!</a>
             </div>
             <div class="combined-map">
-                <!-- Mapa da Praça Central de Arapiraca -->
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!4v1751357780606!6m8!1m7!1s8YAw8Z03RZMCRtzGoUVetA!2m2!1d-9.751267166773824!2d-36.65322165347708!3f300.34042!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
@@ -123,107 +171,104 @@
         </section>
 
         <!-- Seção de Contagem Regressiva para a próxima corrida -->
-        <section id="countdown-section" class="scroll-reveal bg-white p-8 rounded-lg shadow-md container mx-auto my-8">
-            <h2 class="text-2xl font-bold text-green-600 mb-4 text-center">Próxima Grande Corrida!</h2>
+        <section id="countdown-section" class="scroll-reveal bg-f7fff7 p-8 rounded-lg shadow-md container mx-auto my-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">Próxima Grande Corrida!</h2>
             <p class="text-gray-700 mb-4 text-center">Prepare-se para o desafio!</p>
             <div id="countdown-timer" class="flex justify-center gap-4 flex-wrap">
-                <div class="countdown-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                    <span id="days" class="block text-3xl font-bold text-green-600">00</span>
-                    <span class="block text-sm text-gray-600">Dias</span>
-                </div>
-                <div class="countdown-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                    <span id="hours" class="block text-3xl font-bold text-green-600">00</span>
-                    <span class="block text-sm text-gray-600">Horas</span>
-                </div>
-                <div class="countdown-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                    <span id="minutes" class="block text-3xl font-bold text-green-600">00</span>
-                    <span class="block text-sm text-gray-600">Minutos</span>
-                </div>
-                <div class="countdown-item bg-gray-100 p-4 rounded-lg shadow-sm">
-                    <span id="seconds" class="block text-3xl font-bold text-green-600">00</span>
-                    <span class="block text-sm text-gray-600">Segundos</span>
-                </div>
+                <!-- Os números do contador são atualizados pelo JavaScript -->
+                <div class="countdown-item"><span id="days">00</span><span>Dias</span></div>
+                <div class="countdown-item"><span id="hours">00</span><span>Horas</span></div>
+                <div class="countdown-item"><span id="minutes">00</span><span>Minutos</span></div>
+                <div class="countdown-item"><span id="seconds">00</span><span>Segundos</span></div>
             </div>
         </section>
 
-        <!-- Seção Nossa Equipe: Apresenta os membros chave -->
-        <section id="team-section" class="scroll-reveal bg-white p-8 rounded-lg shadow-md container mx-auto my-8">
-            <h2 class="text-2xl font-bold text-green-600 mb-4 text-center">Nossa Equipe</h2>
+        <!-- Seção Nossa Equipe -->
+        <section id="team-section" class="scroll-reveal bg-f7fff7 p-8 rounded-lg shadow-md container mx-auto my-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">Nossa Equipe</h2>
             <div class="team-grid grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                <div class="team-member bg-gray-50 p-6 rounded-lg shadow-sm text-center">
-                    <h3>Nando Martins</h3>
-                    <p>Fundador e corredor profissional</p>
+                <!-- Membro 1 -->
+                <div class="team-member">
+                    <div class="team-member-img"><img src="https://placehold.co/96x96/27ae60/ffffff?text=M1" alt="Foto do Membro 1"></div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-2">Nando Martins</h3>
+                    <p class="text-gray-600">Fundador e corredor profissional</p>
                 </div>
-                <div class="team-member bg-gray-50 p-6 rounded-lg shadow-sm text-center">
-                    <h3>Maria Souza</h3>
-                    <p>Treinadora e nutricionista</p>
+                <!-- Membro 2 -->
+                <div class="team-member">
+                    <div class="team-member-img"><img src="https://placehold.co/96x96/27ae60/ffffff?text=M2" alt="Foto do Membro 2"></div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-2">Maria Souza</h3>
+                    <p class="text-gray-600">Treinadora e nutricionista</p>
                 </div>
-                <div class="team-member bg-gray-50 p-6 rounded-lg shadow-sm text-center">
-                    <h3>Itelas</h3>
-                    <p>Patrocinador oficial</p>
+                <!-- Membro 3 -->
+                <div class="team-member">
+                    <div class="team-member-img"><img src="https://placehold.co/96x96/27ae60/ffffff?text=I" alt="Foto do Patrocinador"></div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-2">Itelas</h3>
+                    <p class="text-gray-600">Patrocinador oficial</p>
                 </div>
             </div>
         </section>
 
-        <!-- Seção Loja do Time: Produtos para venda -->
-        <section id="store-section" class="scroll-reveal bg-white p-8 rounded-lg shadow-md container mx-auto my-8">
-            <h2 class="text-2xl font-bold text-green-600 mb-4 text-center">Loja do Time</h2>
+        <!-- Seção Loja do Time -->
+        <section id="store-section" class="scroll-reveal bg-f7fff7 p-8 rounded-lg shadow-md container mx-auto my-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">Loja do Time</h2>
             <div class="product-list grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                <div class="product-item bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                <!-- Produto 1 -->
+                <div class="product-item">
+                    <img src="https://placehold.co/300x200/27ae60/ffffff?text=Camisa" alt="Camisa Oficial">
                     <h3>Camisa Oficial</h3>
                     <p>Uniforme personalizado da equipe.</p>
-                    <button class="add-to-cart-btn bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition duration-300" data-product="Camisa Oficial">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart-btn" data-product="Camisa Oficial" data-price="79.90">Adicionar ao Carrinho</button>
                 </div>
-                <div class="product-item bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                <!-- Produto 2 -->
+                <div class="product-item">
+                    <img src="https://placehold.co/300x200/27ae60/ffffff?text=Boné" alt="Boné do Time">
                     <h3>Boné do Time</h3>
                     <p>Estilo e proteção solar.</p>
-                    <button class="add-to-cart-btn bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition duration-300" data-product="Boné do Time">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart-btn" data-product="Boné do Time" data-price="39.90">Adicionar ao Carrinho</button>
                 </div>
-                <div class="product-item bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                <!-- Produto 3 -->
+                <div class="product-item">
+                    <img src="https://placehold.co/300x200/27ae60/ffffff?text=Garrafa" alt="Garrafa Personalizada">
                     <h3>Garrafa Personalizada</h3>
                     <p>Com o logo da equipe.</p>
-                    <button class="add-to-cart-btn bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition duration-300" data-product="Garrafa Personalizada">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart-btn" data-product="Garrafa Personalizada" data-price="29.90">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </section>
 
-        <!-- Seção de Contato: Formulário para interessados -->
-        <section id="contact-section" class="scroll-reveal bg-white p-8 rounded-lg shadow-md container mx-auto my-8">
-            <h2 class="text-2xl font-bold text-green-600 mb-4 text-center">Junte-se a Nós</h2>
+        <!-- Seção de Contato com o formulário -->
+        <section id="contact-section" class="scroll-reveal bg-f7fff7 p-8 rounded-lg shadow-md container mx-auto my-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">Junte-se a Nós</h2>
             <p class="text-gray-700 mb-6 text-center">Quer correr conosco ou patrocinar a equipe? Entre em contato:</p>
             <form id="contact-form" class="flex flex-col max-w-xl mx-auto">
                 <label for="name" class="text-gray-700 font-semibold mb-2 text-left">Nome:</label>
-                <input type="text" id="name" name="name" required class="p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-green-500">
-
+                <input type="text" id="name" name="name" required>
                 <label for="email" class="text-gray-700 font-semibold mb-2 text-left">E-mail:</label>
-                <input type="email" id="email" name="email" required class="p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-green-500">
-
+                <input type="email" id="email" name="email" required>
                 <label for="interest" class="text-gray-700 font-semibold mb-2 text-left">Interesse:</label>
-                <select id="interest" name="interest" required class="p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <select id="interest" name="interest" required>
                     <option value="">Selecione...</option>
                     <option value="join">Participar da equipe</option>
                     <option value="sponsor">Ser patrocinador</option>
                     <option value="other">Outro</option>
                 </select>
-
                 <label for="message" class="text-gray-700 font-semibold mb-2 text-left">Mensagem:</label>
-                <textarea id="message" name="message" rows="4" required class="p-3 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"></textarea>
-
-                <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-green-700 transition duration-300 self-center">Enviar</button>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Enviar</button>
             </form>
         </section>
     </main>
 
     <!-- Rodapé do site: informações de copyright e links sociais -->
-    <footer class="bg-[#1a4d2e] text-white text-center py-6 mt-8">
-        <p class="text-white">&copy; 2025 Equipe Cururu Running. Todos os direitos reservados.</p>
+    <footer class="bg-[#1a202c] text-white text-center py-6 mt-8">
+        <p>&copy; 2025 Equipe Cururu Running. Todos os direitos reservados.</p>
         <div class="social-links mt-2">
-            <a href="https://www.instagram.com/curururunning?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-[#90ee90] hover:text-white transition duration-300 mx-2">Instagram</a> |
-            <a href="https://www.strava.com/clubs/1003252" target="_blank" class="text-[#90ee90] hover:text-white transition duration-300 mx-2">Strava</a>
+            <a href="https://www.instagram.com/curururunning?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a> |
+            <a href="https://www.strava.com/clubs/1003252" target="_blank">Strava</a>
         </div>
     </footer>
 
-    <!-- Linka o seu arquivo de script JavaScript (deve ser o único) -->
+    <!-- No final do body, eu chamo o arquivo JavaScript que controla as interações da página. -->
     <script src="script.js"></script>
 </body>
 </html>
