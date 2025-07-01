@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+        // Lógica do Menu Mobile
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a[data-scroll]'); // Seleciona links com data-scroll
+
+    if (mobileMenuButton && mobileMenu && closeMobileMenuButton) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full'); // Mostra o menu
+        });
+
+        closeMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full'); // Esconde o menu
+        });
+
+        // Fecha o menu ao clicar em um link
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('-translate-x-full'); // Esconde o menu
+                // O comportamento de scroll para a seção já é padrão para links com #
+            });
+        });
+    }
+    
     // Contador do carrinho
     let cartCount = 0;
     const cartCounter = document.getElementById('cart-counter');
