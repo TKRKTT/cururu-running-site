@@ -42,33 +42,67 @@ nav ul li a {
     justify-content: center;
 }
 
-/* Seção Hero (o banner principal com a imagem de fundo) */
+/* Seção Hero (o banner principal com as imagens de carrossel) */
 .hero-section {
-    background-image: url('img/IMG-20240221-WA0045.jpg'); /* Preciso ter essa imagem na pasta 'img'. */
-    background-size: cover; /* A imagem cobre toda a área da seção. */
-    background-position: center; /* Centraliza a imagem. */
-    background-attachment: fixed; /* Efeito parallax: a imagem fica parada enquanto a página rola. */
-    position: relative; /* Preciso disso pro overlay funcionar. */
+    /* Remove a imagem de fundo fixa, pois agora será um carrossel de imagens */
+    background-image: none; /* Garante que não haja imagem de fundo do CSS */
+    position: relative; /* Essencial para posicionar as imagens do carrossel e o overlay */
     min-height: 80vh; /* Ocupa pelo menos 80% da altura da tela. */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
+    padding-top: 5rem; /* Espaço extra no topo pra não colar o texto no topo da tela. */
+    overflow: hidden; /* Garante que as imagens não "vazem" para fora da seção */
 }
-/* Crio um "overlay", uma camada escura sobre a imagem pra destacar o texto branco. */
-.hero-section::before {
+
+/* Contêiner para as imagens do carrossel */
+.hero-carousel-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Remove background-attachment: fixed; daqui, pois ele não funciona bem com carrossel de imagens */
+}
+
+/* Estilos para cada imagem dentro do carrossel */
+.hero-carousel-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+    opacity: 0; /* Começa invisível */
+    transition: opacity 1.5s ease-in-out; /* Transição suave entre as imagens */
+    z-index: 1; /* Fica abaixo do conteúdo e do overlay */
+}
+
+/* A imagem ativa (visível) no carrossel */
+.hero-carousel-images img.active {
+    opacity: 1; /* Torna a imagem visível */
+}
+
+/* Crio um "overlay", uma camada escura sobre as imagens do carrossel para destacar o texto branco. */
+.hero-overlay {
     content: '';
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de transparência. */
+    z-index: 2; /* Fica entre as imagens e o conteúdo */
 }
+
 /* O conteúdo de texto da seção hero precisa ficar *acima* do overlay. */
 .hero-content {
     position: relative; /* Garante que o z-index funcione. */
-    z-index: 2; /* Uma camada acima do overlay (que tem z-index implícito de 1). */
+    z-index: 3; /* Uma camada acima do overlay */
     max-width: 900px;
+    padding: 1rem; /* Adiciona um pouco de padding para telas menores */
 }
 
 /* Animação de "fade in" que vou usar em várias seções. */
@@ -91,9 +125,20 @@ nav ul li a {
 
 /* Cards de Informação (aqueles 3 que ficam logo abaixo do hero) */
 .info-card-container {
-    margin-top: -6rem; /* Puxo os cards pra cima, pra eles "invadirem" a seção hero. Fica um efeito legal. */
+    margin-top: 2rem; 
     position: relative;
     z-index: 10; /* Precisa ficar acima da seção hero. */
+    display: grid;
+    gap: 1.5rem; /* Espaço entre os cards. */
+    padding: 0 1.5rem; /* Espaço interno pra não colar os cards nas bordas. */
+
+}
+
+@media (min-width: 768px) {
+    .info-card-container {
+        grid-template-columns: repeat(3, 1fr); /* Em telas maiores, 3 colunas. */
+        margin-top: -6rem; /* Levanta os cards pra ficar mais próximo do hero. */
+    }
 }
 .info-card-item {
     background-color: #ffffff;

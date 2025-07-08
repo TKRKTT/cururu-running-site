@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // --- Lógica do Carrinho de Compras ---
-    // 'cartItems' vai ser um array pra guardar os produtos que o usuário adicionar.
-    let cartItems = []; 
+    let cartItems = []; // Array para armazenar os itens no carrinho.
+    // Pego os elementos do DOM relacionados ao carrinho.
     const cartCounterDesktop = document.getElementById('cart-counter-desktop');
     const cartCounterMobile = document.getElementById('cart-counter-mobile');
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -44,20 +44,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartItemsList = document.getElementById('cart-items-list');
     const cartTotal = document.getElementById('cart-total');
 
-    // Criei uma função pra atualizar tudo que é relacionado ao carrinho.
-    // Assim, eu não repito código. Chamo ela sempre que o carrinho mudar.
+    // Função para atualizar a exibição do carrinho (itens e total).
     function updateCartDisplay() {
         let total = 0;
-        cartItemsList.innerHTML = ''; // Limpo a lista antes de adicionar os itens de novo.
+        cartItemsList.innerHTML = ''; // Limpa a lista antes de redesenhar.
 
         if (cartItems.length === 0) {
             cartItemsList.innerHTML = '<p class="text-gray-600 text-center">Seu carrinho está vazio.</p>';
         } else {
-            // Pra cada item no meu array 'cartItems', eu crio o HTML dele e adiciono na lista.
             cartItems.forEach((item, index) => {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('cart-item');
-                // Uso template literals (com crase ``) pra montar o HTML mais fácil.
                 itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.name}">
                     <div class="cart-item-details">
@@ -67,47 +64,48 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="remove-item-btn" data-index="${index}" title="Remover item">&times;</button>
                 `;
                 cartItemsList.appendChild(itemElement);
-                total += item.price; // Somo o preço do item ao total.
+                total += item.price;
             });
         }
 
-        // Atualizo os contadores (a bolinha vermelha) e o valor total.
+        // Atualiza os contadores de itens no cabeçalho.
         const totalItems = cartItems.length;
         if (cartCounterDesktop) cartCounterDesktop.textContent = totalItems;
         if (cartCounterMobile) cartCounterMobile.textContent = totalItems;
-        cartTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        cartTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`; // Atualiza o total.
 
-        // Depois de criar os botões de remover, preciso adicionar o evento de clique neles.
+        // Adiciona event listeners para os botões de remover item.
         document.querySelectorAll('.remove-item-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const indexToRemove = parseInt(this.getAttribute('data-index'));
-                cartItems.splice(indexToRemove, 1); // Removo o item do array.
-                updateCartDisplay(); // Atualizo a tela do carrinho.
+                cartItems.splice(indexToRemove, 1); // Remove o item do array.
+                updateCartDisplay(); // Atualiza a exibição.
                 showSiteNotification('Item removido do carrinho.');
             });
         });
     }
 
-    // Adiciono o evento de clique para todos os botões de "Adicionar ao Carrinho".
+    // Adiciona event listeners para os botões "Adicionar ao Carrinho".
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
             const productName = this.getAttribute('data-product');
             const productPrice = parseFloat(this.getAttribute('data-price'));
-            const productImage = `https://placehold.co/60x60/2980b9/ffffff?text=${productName.substring(0,2)}`;
+            // Pega o caminho da imagem do produto diretamente do elemento HTML da loja.
+            const productImage = this.closest('.product-item').querySelector('img').src;
 
-            cartItems.push({ name: productName, price: productPrice, image: productImage }); // Adiciono o produto no array.
-            updateCartDisplay(); // Atualizo a tela.
+            cartItems.push({ name: productName, price: productPrice, image: productImage });
+            updateCartDisplay();
             showSiteNotification(`"${productName}" foi adicionado ao carrinho!`);
         });
     });
 
-    // Eventos para abrir e fechar a sidebar do carrinho.
+    // Event listeners para abrir e fechar a sidebar do carrinho.
     if (openCartButton) openCartButton.addEventListener('click', () => cartSidebar.classList.remove('translate-x-full'));
     if (openCartMobileButton) {
         openCartMobileButton.addEventListener('click', (e) => {
             e.preventDefault();
-            mobileMenu.classList.add('-translate-x-full'); // Fecho o menu mobile primeiro.
-            cartSidebar.classList.remove('translate-x-full'); // Abro o carrinho.
+            mobileMenu.classList.add('-translate-x-full'); // Fecha o menu mobile antes de abrir o carrinho.
+            cartSidebar.classList.remove('translate-x-full');
         });
     }
     if (closeCartButton) closeCartButton.addEventListener('click', () => cartSidebar.classList.add('translate-x-full'));
@@ -116,54 +114,89 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede o envio padrão do formulário, que recarregaria a página.
+            e.preventDefault(); // Impede o envio padrão do formulário.
             showSiteNotification('Mensagem enviada com sucesso!');
-            this.reset(); // Limpa os campos do formulário.
+            this.reset(); // Limpa o formulário após o envio.
         });
     }
 
     // --- Função para Mostrar Notificações Temporárias ---
     function showSiteNotification(message) {
         let notification = document.querySelector('.site-notification');
-        if (!notification) { // Se a notificação não existe, eu crio ela.
+        if (!notification) {
             notification = document.createElement('div');
             notification.classList.add('site-notification');
             document.body.appendChild(notification);
         }
         notification.textContent = message;
-        notification.classList.add('show'); // Adiciono a classe que faz ela aparecer.
+        notification.classList.add('show');
 
-        // Depois de 3 segundos, eu removo a classe 'show' pra ela sumir.
         setTimeout(() => {
             notification.classList.remove('show');
-        }, 3000);
+        }, 3000); // A notificação desaparece após 3 segundos.
     }
 
     // --- Lógica do Contador Regressivo ---
+    // Define a data final do evento (31 de Dezembro de 2025, 23:59:59).
     const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
     if (document.getElementById("countdown-timer")) {
+        // Atualiza o contador a cada 1 segundo.
         const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
+            const now = new Date().getTime(); // Pega a data e hora atuais.
+            const distance = countdownDate - now; // Calcula a distância até a data final.
 
+            // Cálculos para dias, horas, minutos e segundos.
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
+            // Função auxiliar para adicionar um zero à esquerda se o número for menor que 10.
             function padZero(num) { return num < 10 ? '0' + num : num; }
 
+            // Atualiza os elementos HTML com os valores calculados.
             document.getElementById("days").innerHTML = padZero(days);
             document.getElementById("hours").innerHTML = padZero(hours);
-            document.getElementById("minutes").innerHTML = padZero(minutes);
+            document.getElementById("minutes").innerHTML = padZero(minutes); // CORRIGIDO: Usando getElementById
             document.getElementById("seconds").innerHTML = padZero(seconds);
 
+            // Se a contagem regressiva terminou, exibe uma mensagem.
             if (distance < 0) {
-                clearInterval(x);
+                clearInterval(x); // Para o contador.
                 document.getElementById("countdown-timer").innerHTML = "<h3 class='text-xl text-green-600 font-bold'>EVENTO ENCERRADO!</h3>";
             }
-        }, 1000);
+        }, 1000); // Roda a cada 1000 milissegundos (1 segundo).
     }
+
+    // --- INÍCIO DA ALTERAÇÃO: Lógica do Carrossel de Imagens de Fundo ---
+    const heroCarouselImages = document.querySelectorAll('.hero-carousel-images img');
+    let currentImageIndex = 0;
+
+    function showNextImage() {
+        // Remove a classe 'active' da imagem atual, tornando-a invisível
+        if (heroCarouselImages[currentImageIndex]) {
+            heroCarouselImages[currentImageIndex].classList.remove('active');
+        }
+
+        // Calcula o índice da próxima imagem (loop infinito)
+        currentImageIndex = (currentImageIndex + 1) % heroCarouselImages.length;
+
+        // Adiciona a classe 'active' à próxima imagem, tornando-a visível
+        if (heroCarouselImages[currentImageIndex]) {
+            heroCarouselImages[currentImageIndex].classList.add('active');
+        }
+    }
+
+    // Inicia o carrossel se houver mais de uma imagem
+    if (heroCarouselImages.length > 1) {
+        // Garante que a primeira imagem esteja ativa ao carregar
+        if (heroCarouselImages[0]) {
+            heroCarouselImages[0].classList.add('active');
+        }
+        // Muda a imagem a cada 5 segundos (5000 milissegundos)
+        setInterval(showNextImage, 5000); 
+    }
+    // FIM DA ALTERAÇÃO: Lógica do Carrossel de Imagens de Fundo
 
     // --- Efeito de Revelação ao Rolar a Página (Scroll Reveal) ---
     const scrollElements = document.querySelectorAll(".scroll-reveal");
@@ -178,6 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     };
+    // Adiciona o event listener para o scroll.
     window.addEventListener("scroll", handleScrollAnimation);
-    handleScrollAnimation(); // Rodo uma vez no início pra animar o que já está na tela.
+    // Chama a função uma vez ao carregar a página para animar elementos já visíveis.
+    handleScrollAnimation();
 });
