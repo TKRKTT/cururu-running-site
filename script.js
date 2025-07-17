@@ -1,5 +1,5 @@
-// Vou usar um event listener pra ter certeza que todo o HTML foi carregado antes de rodar meu script.
-// É uma boa prática pra evitar erros de 'elemento não encontrado'.
+// Usar um event listener pra ter certeza que todo o HTML foi carregado antes de rodar meu script.
+// É pra evitar erros de 'elemento não encontrado'.
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- Lógica do Menu Mobile (o famoso "Hambúrguer") ---
