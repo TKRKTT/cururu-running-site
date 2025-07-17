@@ -1,91 +1,74 @@
-/* Arquivo style.css
-  Aqui eu coloco os estilos que são mais específicos ou que eu não consigo (ou não quero) 
-  fazer só com as classes do Tailwind. É bom pra manter o HTML mais limpo.
-*/
+/* Arquivo style.css */
 
-/* Reset e Estilos Gerais: pra garantir que o site comece com uma base consistente em qualquer navegador. */
+/* Estilos Globais: Reseta o box-sizing e define fontes e cores básicas */
 *, *::before, *::after {
     box-sizing: border-box; 
 }
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Uma fonte segura e legível. */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Um cinza bem clarinho pro fundo. */
-    color: #343a40; /* Um cinza escuro pro texto, mais suave que o preto puro. */
+    background-color: #f8f9fa;
+    color: #343a40;
     line-height: 1.6;
 }
 
-/* Estilos do Cabeçalho
-  Como o cabeçalho é feito com Tailwind, aqui só coloco coisas muito específicas se precisar.
-  Por exemplo, a cor do texto já está no HTML com 'text-gray-700'.
-*/
+/* Estilos do Cabeçalho: Transição suave para links de navegação */
 nav ul li a {
-    transition: color 0.3s ease-in-out; /* Efeito suave quando passo o mouse no link. */
+    transition: color 0.3s ease-in-out;
 }
 
-/* Estilos do Botão do Carrinho (desktop) */
+/* Estilos do Botão do Carrinho (Desktop): Gradiente de cor e o "badge" de contador */
 .cart-button {
-    background: linear-gradient(to right, #3498db, #217dbb); /* Um gradiente azul legal pro botão. */
+    background: linear-gradient(to right, #3498db, #217dbb);
 }
-
-/* O "badge" (a bolinha vermelha) que mostra a quantidade de itens no carrinho. */
 .cart-badge {
-    background-color: #e74c3c; /* Vermelho pra chamar atenção. */
+    background-color: #e74c3c; /* Cor vermelha para o contador */
     font-size: 0.75rem;
     font-weight: bold;
-    border-radius: 9999px; /* Truque pra deixar sempre redondo. */
+    border-radius: 9999px; /* Formato de círculo */
     height: 20px;
     width: 20px;
-    display: flex; /* Pra centralizar o número dentro da bolinha. */
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Seção Hero (o banner principal com as imagens de carrossel) */
+/* Seção Hero (Banner Principal): Configuração do carrossel de imagens e overlay */
 .hero-section {
-    /* Remove a imagem de fundo fixa, pois agora será um carrossel de imagens */
-    background-image: none; /* Garante que não haja imagem de fundo do CSS */
-    position: relative; /* Essencial para posicionar as imagens do carrossel e o overlay */
-    min-height: 80vh; /* Ocupa pelo menos 80% da altura da tela. */
+    position: relative;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
-    padding-top: 5rem; /* Espaço extra no topo pra não colar o texto no topo da tela. */
-    overflow: hidden; /* Garante que as imagens não "vazem" para fora da seção */
+    padding-top: 5rem;
+    overflow: hidden;
 }
-
-/* Contêiner para as imagens do carrossel */
+/* Contêiner das Imagens do Carrossel: Posição e transição para o efeito de troca */
 .hero-carousel-images {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Remove background-attachment: fixed; daqui, pois ele não funciona bem com carrossel de imagens */
 }
-
-/* Estilos para cada imagem dentro do carrossel */
 .hero-carousel-images img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+    object-fit: cover;
     opacity: 0; /* Começa invisível */
-    transition: opacity 1.5s ease-in-out; /* Transição suave entre as imagens */
-    z-index: 1; /* Fica abaixo do conteúdo e do overlay */
+    transition: opacity 1.5s ease-in-out; /* Transição suave */
+    z-index: 1;
 }
-
-/* A imagem ativa (visível) no carrossel */
 .hero-carousel-images img.active {
-    opacity: 1; /* Torna a imagem visível */
+    opacity: 1; /* Imagem ativa fica visível */
 }
-
-/* Crio um "overlay", uma camada escura sobre as imagens do carrossel para destacar o texto branco. */
+/* Overlay: Camada semitransparente sobre as imagens para legibilidade do texto */
 .hero-overlay {
     content: '';
     position: absolute;
@@ -93,27 +76,26 @@ nav ul li a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Preto com 50% de transparência. */
-    z-index: 2; /* Fica entre as imagens e o conteúdo */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
-
-/* O conteúdo de texto da seção hero precisa ficar *acima* do overlay. */
+/* Conteúdo Hero: Posição acima do overlay */
 .hero-content {
-    position: relative; /* Garante que o z-index funcione. */
-    z-index: 3; /* Uma camada acima do overlay */
+    position: relative;
+    z-index: 3;
     max-width: 900px;
-    padding: 1rem; /* Adiciona um pouco de padding para telas menores */
+    padding: 1rem;
 }
 
-/* Animação de "fade in" que vou usar em várias seções. */
+/* Animação de Entrada: `fadeInUp` para elementos que aparecem ao rolar a página */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Começa 20px pra baixo e invisível. */
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0); /* Termina na posição normal e visível. */
+        transform: translateY(0);
     }
 }
 .animate-fade-in-up {
@@ -123,28 +105,26 @@ nav ul li a {
 .animate-fade-in-up.delay-100 { animation-delay: 0.1s; }
 .animate-fade-in-up.delay-200 { animation-delay: 0.2s; }
 
-/* Cards de Informação (aqueles 3 que ficam logo abaixo do hero) */
+/* Cards de Informação: Layout e estilos para os cartões de destaque */
 .info-card-container {
     margin-top: 2rem; 
     position: relative;
-    z-index: 10; /* Precisa ficar acima da seção hero. */
+    z-index: 10;
     display: grid;
-    gap: 1.5rem; /* Espaço entre os cards. */
-    padding: 0 1.5rem; /* Espaço interno pra não colar os cards nas bordas. */
-
+    gap: 1.5rem;
+    padding: 0 1.5rem;
 }
-
 @media (min-width: 768px) {
     .info-card-container {
-        grid-template-columns: repeat(3, 1fr); /* Em telas maiores, 3 colunas. */
-        margin-top: -6rem; /* Levanta os cards pra ficar mais próximo do hero. */
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: -6rem; /* Efeito de sobreposição com a seção hero */
     }
 }
 .info-card-item {
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave. */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,10 +137,10 @@ nav ul li a {
     margin-bottom: 0.5rem;
 }
 
-/* Seção Combinada (Texto e Mapa) */
+/* Seção Combinada (Texto e Mapa): Layout responsivo e estilo do mapa */
 .combined-section {
     display: flex;
-    flex-direction: column; /* Em telas pequenas, um fica em cima do outro. */
+    flex-direction: column;
     gap: 2rem;
     padding: 4rem 1.5rem;
     background-color: #ffffff;
@@ -169,7 +149,7 @@ nav ul li a {
 }
 @media (min-width: 768px) {
     .combined-section {
-        flex-direction: row; /* Em telas maiores, ficam lado a lado. */
+        flex-direction: row; /* Colunas em telas maiores */
     }
     .combined-content { flex: 1; padding-right: 2rem; }
     .combined-map { flex: 1; }
@@ -177,12 +157,12 @@ nav ul li a {
 .combined-section h2 { font-size: 2.5rem; font-weight: bold; color: #2980b9; }
 .map-container {
     border-radius: 0.5rem;
-    overflow: hidden; /* Esconde as bordas do iframe do Google Maps. */
+    overflow: hidden;
     height: 400px;
 }
 .map-container iframe { width: 100%; height: 100%; border: 0; }
 
-/* Contador Regressivo */
+/* Contador Regressivo: Estilo dos elementos do timer */
 .countdown-item {
     background-color: #ffffff;
     padding: 1rem;
@@ -204,18 +184,18 @@ nav ul li a {
     text-transform: uppercase;
 }
 
-/* Seção Nossa Equipe e Loja */
+/* Seção Nossa Equipe e Loja: Estilo dos cards de membros e produtos */
 .team-member, .product-item {
     background-color: white;
     padding: 1.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito suave ao passar o mouse. */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito hover */
 }
 .team-member:hover, .product-item:hover {
-    transform: translateY(-5px); /* Levanta um pouquinho. */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* A sombra fica mais forte. */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 .team-member-img {
     width: 96px; height: 96px;
@@ -235,12 +215,12 @@ nav ul li a {
 .product-item h3 { font-size: 1.25rem; font-weight: 600; color: #343a40; margin-bottom: 0.5rem; }
 .product-item p { color: #6c757d; margin-bottom: 1rem; min-height: 40px; }
 
-/* Botão genérico para seções como Loja e Contato */
+/* Botão Genérico: Estilo para botões de ação como "Adicionar ao Carrinho" e "Enviar" */
 .add-to-cart-btn, #contact-form button {
     background-color: #2980b9;
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: 9999px; /* Botão tipo "pílula". */
+    border-radius: 9999px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -249,13 +229,13 @@ nav ul li a {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .add-to-cart-btn:hover, #contact-form button:hover {
-    background-color: #2c3e50; /* Escurece no hover. */
-    transform: scale(1.05); /* Aumenta um pouquinho. */
+    background-color: #2c3e50;
+    transform: scale(1.05);
 }
 
-/* Formulário de Contato */
+/* Formulário de Contato: Estilo dos campos de entrada e botão de envio */
 #contact-form {
-    gap: 1rem; /* Espaço entre os campos do formulário. */
+    gap: 1rem;
 }
 #contact-form input, #contact-form select, #contact-form textarea {
     width: 100%;
@@ -268,12 +248,12 @@ nav ul li a {
 #contact-form input:focus, #contact-form select:focus, #contact-form textarea:focus {
     outline: none;
     border-color: #2980b9;
-    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.2); /* Efeito de foco. */
+    box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.2);
 }
-#contact-form textarea { resize: vertical; } /* Permite que o usuário aumente a altura da área de texto. */
-#contact-form button { align-self: center; } /* Centraliza o botão de envio. */
+#contact-form textarea { resize: vertical; }
+#contact-form button { align-self: center; }
 
-/* Rodapé */
+/* Rodapé: Estilo dos links de redes sociais */
 .social-links a {
     color: #85c1e9;
     text-decoration: none;
@@ -282,7 +262,7 @@ nav ul li a {
 }
 .social-links a:hover { color: white; }
 
-/* Notificação do Site (aquela mensagem que aparece no canto) */
+/* Notificação do Site: Mensagens temporárias na tela */
 .site-notification {
     position: fixed;
     bottom: 20px;
@@ -297,25 +277,23 @@ nav ul li a {
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
-/* Classe que o JS vai adicionar para mostrar a notificação */
 .site-notification.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
 
-/* Efeito de Revelação ao Rolar a Página */
+/* Efeito de Revelação ao Rolar a Página (Scroll Reveal): Animação de entrada para seções */
 .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-/* Classe que o JS adiciona quando o elemento está visível na tela */
 .scroll-reveal.active {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Estilos para os itens dentro do carrinho */
+/* Estilos dos Itens Dentro do Carrinho: Layout e botão de remover */
 .cart-item {
     display: flex;
     align-items: center;
